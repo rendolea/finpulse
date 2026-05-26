@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Пульс — финансовый помощник с ИИ-советами, прогнозами трат и понятным бюджетом. Скачайте бесплатно в RuStore и Google Play." />
+  <title>Пульс — ваш финансовый помощник</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ececee;
+      --bg-card: #ffffff;
+      --bg-muted: #e4e6ea;
+      --text: #0f0f10;
+      --text-secondary: #6b6f76;
+      --green-50: #e8f9ec;
+      --green-100: #c8f4d4;
+      --green-400: #5fd068;
+      --green-500: #3ecf5a;
+      --green-600: #2db84a;
+      --green-700: #1f9a3c;
+      --green-hero: #4cd964;
+      --green-dark: #1a6b32;
+      --dark: #141416;
+      --dark-elevated: #1c1c1f;
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --shadow: 0 12px 40px rgba(15, 15, 16, 0.08);
+      --shadow-lg: 0 24px 60px rgba(15, 15, 16, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .header.scrolled {
+      background: rgba(236, 236, 238, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--green-400), var(--green-700));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--green-500);
+      color: white;
+      box-shadow: 0 8px 24px rgba(62, 207, 90, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-600);
+      box-shadow: 0 10px 28px rgba(62, 207, 90, 0.45);
+    }
+
+    .btn-soft {
+      background: var(--green-50);
+      color: var(--green-700);
+    }
+
+    .btn-soft:hover { background: var(--green-100); }
+
+    .btn-dark {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-dark:hover { background: var(--dark-elevated); }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--green-50);
+      color: var(--green-700);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-500);
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--green-600), var(--green-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-lead {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .store-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .store-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .store-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .store-badge svg { flex-shrink: 0; }
+
+    .store-badge small {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* Phone mockup */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-frame {
+      width: min(300px, 90%);
+      border-radius: 40px;
+      padding: 12px;
+      background: linear-gradient(160deg, #2a2a2e 0%, #0f0f10 100%);
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,0.08) inset;
+      position: relative;
+      z-index: 2;
+    }
+
+    .phone-screen {
+      border-radius: 32px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .phone-screen img {
+      width: 100%;
+      height: auto;
+    }
+
+    .hero-orbits {
+      position: absolute;
+      inset: -20% -10%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%),
+                  linear-gradient(145deg, #7ef0a0, #2db84a 60%, #1a6b32);
+      box-shadow: 0 20px 50px rgba(45, 184, 74, 0.35);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .orb-1 { width: 90px; height: 90px; top: 5%; right: 10%; animation-delay: 0s; }
+    .orb-2 { width: 55px; height: 55px; top: 35%; right: 0; animation-delay: -1.5s; opacity: 0.85; }
+    .orb-3 { width: 70px; height: 70px; bottom: 15%; left: 5%; animation-delay: -3s; }
+    .orb-4 { width: 40px; height: 40px; top: 15%; left: 15%; animation-delay: -2s; opacity: 0.7; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    /* Stats strip */
+    .stats {
+      padding: 0 0 64px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--green-600);
+      margin-bottom: 4px;
+    }
+
+    .stat-card span {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Section common */
+    section { padding: 72px 0; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--green-700);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+    /* Why different */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .diff-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .diff-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--green-50);
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+
+    .diff-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .diff-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Features */
+    .features-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .feature-main {
+      background: linear-gradient(160deg, var(--green-500) 0%, var(--green-700) 100%);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .feature-main::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .feature-main h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-main p {
+      opacity: 0.9;
+      font-size: 0.95rem;
+      max-width: 280px;
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
+    }
+
+    .forecast-chart {
+      position: relative;
+      z-index: 1;
+      margin-top: 24px;
+      height: 120px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .forecast-bar {
+      flex: 1;
+      background: rgba(255,255,255,0.25);
+      border-radius: 8px 8px 0 0;
+      transition: height 0.3s;
+    }
+
+    .forecast-bar:nth-child(1) { height: 45%; }
+    .forecast-bar:nth-child(2) { height: 62%; }
+    .forecast-bar:nth-child(3) { height: 55%; }
+    .forecast-bar:nth-child(4) { height: 78%; background: rgba(255,255,255,0.45); }
+    .forecast-bar:nth-child(5) { height: 70%; }
+    .forecast-bar:nth-child(6) { height: 85%; }
+
+    .feature-side {
+      display: grid;
+      gap: 20px;
+    }
+
+    .feature-dark {
+      background: var(--dark);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .feature-dark::before {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--green-400) 0%, transparent 70%);
+      opacity: 0.35;
+    }
+
+    .feature-dark h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-dark p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 1;
+      line-height: 1.55;
+    }
+
+    .credit-gauge {
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+      width: 140px;
+      height: 70px;
+      border: 8px solid rgba(255,255,255,0.15);
+      border-bottom: none;
+      border-radius: 140px 140px 0 0;
+    }
+
+    .credit-gauge-fill {
+      position: absolute;
+      inset: 0;
+      border: 8px solid var(--green-400);
+      border-bottom: none;
+      border-radius: 140px 140px 0 0;
+      clip-path: polygon(0 100%, 0 0, 72% 0, 72% 100%);
+    }
+
+    .credit-score {
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .feature-light {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-light h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .feature-light p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .subscription-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      background: var(--bg-muted);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    /* Screenshots */
+    .screens-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    .screens-text h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .screens-text p {
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .screens-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .screens-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .screens-list li::before {
+      content: "✓";
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: var(--green-50);
+      color: var(--green-700);
+      display: grid;
+      place-items: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .screens-phones {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .screens-phones .phone-frame {
+      width: 200px;
+    }
+
+    .screens-phones .phone-frame:nth-child(2) {
+      transform: translateY(24px);
+    }
+
+    /* AI insight banner */
+    .insight-banner {
+      background: var(--dark);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .insight-banner::after {
+      content: "";
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, var(--green-400), transparent 65%);
+      opacity: 0.4;
+      border-radius: 50%;
+    }
+
+    .insight-banner h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .insight-banner p {
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    .insight-amount {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--green-400);
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+
+    /* CTA block */
+    .cta-block {
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 20px 50px rgba(45, 184, 74, 0.3);
+    }
+
+    .cta-block h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .cta-block p {
+      opacity: 0.9;
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+    }
+
+    .cta-block .store-badges {
+      justify-content: center;
+    }
+
+    .cta-block .store-badge {
+      background: rgba(255,255,255,0.95);
+      color: var(--text);
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--bg-muted);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--bg);
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--green-400);
+    }
+
+    .form-group textarea { min-height: 120px; resize: vertical; }
+
+    .contact-info {
+      padding-top: 8px;
+    }
+
+    .contact-info h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .contact-info p {
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .telegram-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 22px;
+      background: #229ED9;
+      color: white;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .telegram-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(34, 158, 217, 0.35);
+    }
+
+    /* Footer */
+    footer {
+      padding: 32px 0 48px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      margin-top: 48px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid,
+      .features-showcase,
+      .contact-grid,
+      .screens-row,
+      .insight-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .diff-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .nav { display: none; }
+      .nav.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 20px;
+        right: 20px;
+        background: var(--bg-card);
+        padding: 20px;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .menu-toggle { display: block; }
+
+      .hero-visual { order: -1; }
+      .hero { padding-top: 100px; }
+
+      .insight-amount { font-size: 1.5rem; }
+      .screens-phones .phone-frame:nth-child(2) { transform: none; }
+    }
+
+    @media (max-width: 520px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .screens-phones { flex-direction: column; align-items: center; }
+      .cta-block, .insight-banner, .contact-form { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">◉</span>
+        Пульс
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#features">Возможности</a>
+        <a href="#why">Почему мы</a>
+        <a href="#download">Скачать</a>
+        <a href="#contact">Связаться</a>
+      </nav>
+      <a href="#download" class="btn btn-primary">Скачать</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            MVP — тестируйте прямо сейчас
+          </div>
+          <h1>Ваш бюджет <span>под контролем</span> — без сложных терминов</h1>
+          <p class="hero-lead">
+            Пульс — финансовый помощник для обычных людей: показывает риски, даёт ИИ-советы по тратам и накоплениям, помогает понять, куда уходят деньги и что ждёт вас впереди.
+          </p>
+          <div class="hero-cta">
+            <a href="#download" class="btn btn-primary">Скачать бесплатно</a>
+            <a href="#features" class="btn btn-soft">Узнать больше</a>
+          </div>
+          <div class="store-badges">
+            <a href="#download" class="store-badge" aria-label="RuStore">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect width="28" height="28" rx="8" fill="#1A1A1A"/>
+                <path d="M8 14l4 4 8-8" stroke="#4CD964" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span><small>Скачать в</small>RuStore</span>
+            </a>
+            <a href="#download" class="store-badge" aria-label="Google Play">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <path d="M6 5l14 9-14 9V5z" fill="#4CD964"/>
+                <path d="M6 5l8 9-8 9V5z" fill="#2DB84A"/>
+              </svg>
+              <span><small>Доступно в</small>Google Play</span>
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-orbits" aria-hidden="true">
+            <span class="orb orb-1"></span>
+            <span class="orb orb-2"></span>
+            <span class="orb orb-3"></span>
+            <span class="orb orb-4"></span>
+          </div>
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <img src="assets/screen-home.png" alt="Главный экран приложения Пульс" width="276" height="600" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat-card">
+          <strong>ИИ</strong>
+          <span>персональные советы по бюджету</span>
+        </div>
+        <div class="stat-card">
+          <strong>24/7</strong>
+          <span>контроль рисков и трат</span>
+        </div>
+        <div class="stat-card">
+          <strong>∞</strong>
+          <span>прогноз на основе прошлых трат</span>
+        </div>
+        <div class="stat-card">
+          <strong>0 ₽</strong>
+          <span>на старте — тестируйте MVP</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="container">
+        <span class="section-label">Не просто учёт</span>
+        <h2 class="section-title">Продукт, которым хочется пользоваться каждый день</h2>
+        <p class="section-desc">
+          Мы не копируем банковские приложения. Пульс помогает формировать здоровые финансовые привычки, принимать решения осознанно и видеть полную картину — от подписок до кредитной нагрузки.
+        </p>
+        <div class="diff-grid">
+          <article class="diff-card">
+            <div class="diff-card-icon">📊</div>
+            <h3>Понятный бюджет</h3>
+            <p>Видите доходы, расходы и остаток простым языком — без таблиц и сложной бухгалтерии.</p>
+          </article>
+          <article class="diff-card">
+            <div class="diff-card-icon">🤖</div>
+            <h3>ИИ-консультации</h3>
+            <p>Получайте советы: куда лучше потратить, что отложить и как снизить финансовые риски.</p>
+          </article>
+          <article class="diff-card">
+            <div class="diff-card-icon">🔮</div>
+            <h3>Прогноз будущего</h3>
+            <p>Планируйте траты на основе подписок, систематических списаний и истории покупок.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <span class="section-label">Возможности</span>
+        <h2 class="section-title">Всё важное — на одном экране</h2>
+        <p class="section-desc">
+          Ключевые траты, кредитная нагрузка, постоянные расходы и сравнение с людьми вашей категории — чтобы вы понимали, где вы сейчас и куда движетесь.
+        </p>
+
+        <div class="features-showcase">
+          <div class="feature-main">
+            <div>
+              <h3>Прогнозы</h3>
+              <p>Смотрите, куда могут уйти деньги в будущем — по неделе или году, на основе реальных трат.</p>
+            </div>
+            <div class="forecast-chart" aria-hidden="true">
+              <div class="forecast-bar"></div>
+              <div class="forecast-bar"></div>
+              <div class="forecast-bar"></div>
+              <div class="forecast-bar"></div>
+              <div class="forecast-bar"></div>
+              <div class="forecast-bar"></div>
+            </div>
+          </div>
+          <div class="feature-side">
+            <div class="feature-dark">
+              <h3>Кредитный рейтинг</h3>
+              <p>Понимайте свою кредитную нагрузку и получайте рекомендации по улучшению финансового состояния.</p>
+              <div class="credit-gauge" aria-hidden="true">
+                <div class="credit-gauge-fill"></div>
+                <span class="credit-score">350</span>
+              </div>
+            </div>
+            <div class="feature-light">
+              <h3>Постоянные расходы</h3>
+              <p>Отслеживайте подписки и систематические списания — Netflix, хостинг, связь и другие категории.</p>
+              <div class="subscription-tags">
+                <span class="tag">Подписки</span>
+                <span class="tag">Связь</span>
+                <span class="tag">Хостинг</span>
+                <span class="tag">+7 категорий</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-banner">
+          <div>
+            <h3>Умные подсказки по каждой операции</h3>
+            <p>Налоговые вычеты, возвраты, анализ категорий — ИИ объясняет, что можно вернуть и как оптимизировать траты, как в реальной жизни, а не в отчёте банка.</p>
+          </div>
+          <div class="insight-amount">до 2 423 ₽</div>
+        </div>
+
+        <div class="screens-row">
+          <div class="screens-text">
+            <h3>Каждая трата — с контекстом</h3>
+            <p>Откройте операцию и сразу увидите категорию, реквизиты, подсказки и действия: скрыть, не разделять, получить справку.</p>
+            <ul class="screens-list">
+              <li>Ключевые траты и категории на виду</li>
+              <li>Финансовые риски и предупреждения</li>
+              <li>Сравнение с людьми вашей категории</li>
+              <li>Рекомендации по накоплениям и тратам</li>
+            </ul>
+          </div>
+          <div class="screens-phones">
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <img src="assets/screen-home.png" alt="Дашборд Пульс" loading="lazy" />
+              </div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <img src="assets/screen-operation.png" alt="Детали операции в Пульс" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="container">
+        <div class="cta-block">
+          <h2>Скачайте Пульс и протестируйте MVP</h2>
+          <p>Начните лучше понимать свои деньги уже сегодня — установка займёт пару минут.</p>
+          <div class="store-badges">
+            <a href="#" class="store-badge" id="rustoreLink">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect width="28" height="28" rx="8" fill="#141416"/>
+                <path d="M8 14l4 4 8-8" stroke="#4CD964" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span><small>Скачать в</small>RuStore</span>
+            </a>
+            <a href="#" class="store-badge" id="playLink">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <path d="M6 5l14 9-14 9V5z" fill="#4CD964"/>
+              </svg>
+              <span><small>Google</small>Play Market</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <span class="section-label">Контакты</span>
+        <h2 class="section-title">Вопросы и обратная связь</h2>
+        <p class="section-desc">Напишите нам — ответим в Telegram. Укажите имя и вопрос, форма откроет чат с командой.</p>
+
+        <div class="contact-grid">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Ваше имя</label>
+              <input type="text" id="name" name="name" placeholder="Как к вам обращаться?" required />
+            </div>
+            <div class="form-group">
+              <label for="topic">Тема</label>
+              <select id="topic" name="topic" required>
+                <option value="">Выберите тему</option>
+                <option value="Скачивание и установка">Скачивание и установка</option>
+                <option value="Функции приложения">Функции приложения</option>
+                <option value="Сотрудничество">Сотрудничество</option>
+                <option value="Другое">Другое</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Сообщение</label>
+              <textarea id="message" name="message" placeholder="Ваш вопрос или предложение..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%">Отправить в Telegram</button>
+          </form>
+
+          <div class="contact-info">
+            <h3>Или напишите напрямую</h3>
+            <p>Мы на связи в Telegram — задавайте вопросы о приложении, тестировании MVP и партнёрстве.</p>
+            <a href="https://t.me/CqurFar" class="telegram-link" target="_blank" rel="noopener noreferrer">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+              </svg>
+              @CqurFar
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 Пульс. Финансовый помощник для вашей жизни.</span>
+      <a href="https://t.me/CqurFar" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </div>
+  </footer>
+
+  <script>
+    const TELEGRAM = "https://t.me/CqurFar";
+
+    const header = document.getElementById("header");
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 20);
+    });
+
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("nav").classList.toggle("open");
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const topic = document.getElementById("topic").value;
+      const message = document.getElementById("message").value.trim();
+      const text = [
+        "Привет! Вопрос с лендинга Пульс:",
+        "",
+        `Имя: ${name}`,
+        `Тема: ${topic}`,
+        "",
+        message
+      ].join("\n");
+      const url = `${TELEGRAM}?text=${encodeURIComponent(text)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+
+    ["rustoreLink", "playLink"].forEach((id) => {
+      document.getElementById(id).addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Ссылка на магазин будет добавлена после публикации приложения. Пока напишите нам в Telegram!");
+        window.open(TELEGRAM, "_blank", "noopener,noreferrer");
+      });
+    });
+  </script>
+</body>
+</html>
